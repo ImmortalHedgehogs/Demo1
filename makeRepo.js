@@ -1,11 +1,11 @@
 // const  Octokit  = require("octokit");
 import { Octokit } from 'octokit';
-import 'dotenv/config';
+// import 'dotenv/config';
 
 // console.log(process.env.MY_TOKEN);
 // const token = process.env.MY_TOKEN;
 const octokit = new Octokit({
-    auth: process.env.API_KEY,
+    auth: process.argv[3],
 });
 
 // function getFile(){
