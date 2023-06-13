@@ -11,7 +11,8 @@ jobs:
     steps:
       - uses: actions/checkout@v3 #checking out 
       - uses: actions/download-artifact@v3
-        with: logins
+        with: 
+          name: logins
       
       - id: set-matrix #populates generatedmatrix -- EOF stuff because it's multiline
         run: |
@@ -28,7 +29,9 @@ jobs:
         user: ${{ fromJSON(needs.get-matrix.outputs.generatedmatrix) }} #each matrix call is a JSON object in the form: { login: "username" }
     runs-on: ubuntu-latest
     steps:
-     - name: call makerepo.jsg
+     - uses: actions/checkout@v3
+     - run: npm install
+     - name: call makerepo.js
        env:
           SECRET_TOKEN: ${{ secrets.TOKEN }}
-       run: node makeRepo.js "${{ matrix.user.login }}" "$SECRET_TOKEN" #runs makeRepo.js with username
+       run: node makeRepo.js ${{ matrix.user.login }} "$SECRET_TOKEN" #runs makeRepo.js with username

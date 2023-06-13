@@ -42,6 +42,7 @@ jobs:
       env:
         SECRET_TOKEN: ${{ secrets.TOKEN }}
       run: | 
+        npm install octokit
         node index.js "$SECRET_TOKEN"
         value=`cat output.json`
         echo $value
@@ -49,5 +50,9 @@ jobs:
       with:
         name: logins
         path: output.json
-      
-    
+  
+  create-repos:
+    needs: Getting_User_logins
+    uses: ImmortalHedgehogs/Demo1/.github/workflows/create-repos.yml@matrix-workflow
+    secrets:
+      inherit
