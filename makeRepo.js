@@ -1,11 +1,13 @@
-const { Octokit } = require("octokit");
-require('dotenv').config();
+// const  Octokit  = require("octokit");
+import { Octokit } from 'octokit';
+import 'dotenv/config';
 
-
+// console.log(process.env.MY_TOKEN);
 // const token = process.env.MY_TOKEN;
 const octokit = new Octokit({
-    auth: process.env.MY_TOKEN,
+    auth: process.env.API_KEY,
 });
+
 // function getFile(){
 //     console.log("grabbing json file");
 //     try {
@@ -22,8 +24,6 @@ const octokit = new Octokit({
 //     return userDat;
 // }
 
-
-//prolly grab only the necessary shit from here
 async function createRepo(){
     let userlogin = process.argv[2];
     console.log(userlogin);
@@ -45,9 +45,9 @@ async function createRepo(){
 
     console.log("repo created");
 }
-function driver(){
-    let data = getFile(); 
-    createRepo(data);
-}
-driver();
+// function driver(){
+//     let data = getFile(); 
+//     createRepo(data);
+// }
+// createRepo();
 
