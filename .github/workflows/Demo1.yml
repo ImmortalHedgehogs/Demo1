@@ -1,3 +1,6 @@
+
+
+    
 name: Demo 1 Github Actions/APIs/workflows
 
 on: 
@@ -12,8 +15,8 @@ jobs:
     steps:
 # working on caching
 
-    - name: installing octokit dependency
-      run: npm install octokit
+    # - name: installing octokit dependency
+    #   run: npm install octokit
 
     - uses: actions/checkout@v3
     - name: Cache node modules
@@ -31,9 +34,11 @@ jobs:
           ${{ runner.os }}-
 
 
-    - name: Get user logins from org
+    - name: installing cache
       if: ${{ steps.cache-npm.outputs.cache-hit == 'true' }}
-    # - name: Get user logins from org
+      run: npm install
+    
+    - name: Get user logins from org
       env:
         SECRET_TOKEN: ${{ secrets.TOKEN }}
       run: | 
