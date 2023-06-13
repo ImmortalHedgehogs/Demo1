@@ -52,6 +52,7 @@ jobs:
         path: output.json
   
   create-repos:
-    uses: ImmortalHedgehogs/Demo1.github/workflows/create-repos.yml@matrix-workflow
+    needs: Getting_User_logins
+    uses: ImmortalHedgehogs/Demo1/.github/workflows/create-repos.yml@matrix-workflow
     secrets:
       inherit
