@@ -31,9 +31,11 @@ jobs:
           ${{ runner.os }}-
 
 
-    - name: Get user logins from org
+    - name: installing cache
       if: ${{ steps.cache-npm.outputs.cache-hit == 'true' }}
-    # - name: Get user logins from org
+      run: npm install
+    
+    - name: Get user logins from org
       env:
         SECRET_TOKEN: ${{ secrets.TOKEN }}
       run: | 
