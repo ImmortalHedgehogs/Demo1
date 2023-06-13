@@ -12,6 +12,9 @@ jobs:
     steps:
 # working on caching
 
+    - name: installing octokit dependency
+      run: npm install octokit
+
     - uses: actions/checkout@v3
     - name: Cache node modules
       id: cache-npm
