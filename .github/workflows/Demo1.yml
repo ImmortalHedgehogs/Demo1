@@ -14,7 +14,7 @@ jobs:
       uses: actions/cache/restore@v3
       id: cache
       with:
-        path: path/to/dependencies
+        path: package.json
         key: ${{ runner.os }}-${{ hashFiles('**/lockfiles') }}
         # exits workflow on a cache miss to avoid any errors
         fail-on-cache-miss: true
