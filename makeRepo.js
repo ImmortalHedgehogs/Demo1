@@ -45,6 +45,7 @@ async function createRepo(){
 
     console.log("repo created");
 }
+createRepo();
 // function driver(){
 //     let data = getFile(); 
 //     createRepo(data);
