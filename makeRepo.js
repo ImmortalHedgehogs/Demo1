@@ -30,7 +30,7 @@ async function createRepo(){
     try{
        let res = await octokit.graphql({
             query: `mutation{
-                createRepository(input:{name: "${userlogin}", visibility: public}){
+                createRepository(input:{name: "${userlogin}", visibility: PUBLIC}){
                     repository{
                         url
                         id
