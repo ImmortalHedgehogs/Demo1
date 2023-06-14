@@ -1,20 +1,17 @@
 name: Demo 1 Github Actions/APIs/workflows
 
 on: 
-  push:
-    branches: 
-    - main
+#   push:
+#     branches: 
+#     - main
   workflow_dispatch:
 
 jobs: 
   Getting_User_logins:
     runs-on: ubuntu-latest
     steps:
+    
 # working on caching
-
-    # - name: installing octokit dependency
-    #   run: npm install octokit
-
     - uses: actions/checkout@v3
     - name: Cache node modules
       id: cache-npm
@@ -34,7 +31,8 @@ jobs:
     - name: installing cache
       if: ${{ steps.cache-npm.outputs.cache-hit == 'true' }}
       run: npm install
-    
+      
+    # Ripping logins from our org
     - name: Get user logins from org
       env:
         SECRET_TOKEN: ${{ secrets.TOKEN }}
@@ -42,6 +40,7 @@ jobs:
         node index.js "$SECRET_TOKEN"
         value=`cat output.json`
         echo $value
+    # uploads user logins as an artifact 
     - uses: actions/upload-artifact@v3
       with:
         name: logins
