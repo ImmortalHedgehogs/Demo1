@@ -28,19 +28,19 @@ const octokit = new Octokit({
 
 async function createRepo(){
     let userlogin = process.argv[2];
-    let orgID = await octokit.graphql({
+    let data = await octokit.graphql({
         query: `query{
             organization(login: "ImmortalHedgehogs"){
                 id
             }
         }`
     });
-
     // console.log(userlogin);
+    
     try{
        let res = await octokit.graphql({
             query: `mutation{
-                createRepository(input:{ownerId: "${orgID}" ,name: "${userlogin}", visibility: PUBLIC}){
+                createRepository(input:{ownerId: "${data.organization.id}" ,name: "${userlogin}", visibility: PUBLIC}){
                     repository{
                         url
                         id
