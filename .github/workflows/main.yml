@@ -12,7 +12,7 @@ jobs:
       id: get-users
       env:
         SECRET_TOKEN: ${{ secrets.TOKEN }}
-      uses: ImmortalHedgehogs/Demo1/getUsers@mainworkflow
+      uses: ImmortalHedgehogs/Demo1/getUsers@main
       with:
         secret-token: $SECRET_TOKEN
     # placing output from composite action into output.json to upload artifact
@@ -25,6 +25,6 @@ jobs:
   
   create-repos:
     needs: Getting_User_logins
-    uses: ImmortalHedgehogs/Demo1/.github/workflows/create-repos.yml@matrix-workflow
+    uses: ImmortalHedgehogs/Demo1/.github/workflows/create-repos.yml@main
     secrets:
       inherit
