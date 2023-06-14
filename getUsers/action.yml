@@ -12,7 +12,7 @@ runs:
   using: "composite"
   steps:
     - name: installing dependencies
-      run: npm install octokit
+      run: npm install
       shell: bash
     - name: Checkout Current Repository
       uses: actions/checkout@v3
