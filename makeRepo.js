@@ -1,46 +1,27 @@
 // const  Octokit  = require("octokit");
 import { Octokit } from 'octokit';
-// import 'dotenv/config';
-
-// console.log(process.env.MY_TOKEN);
-// const token = process.env.MY_TOKEN;
 const octokit = new Octokit({
     auth: process.argv[3],
 });
 
-// function getFile(){
-//     console.log("grabbing json file");
-//     try {
-//         fs.readFile(core.getInput('users'), (err, data) =>{
-//             if(err) throw err;
-//             const userDat = JSON.parse(data);
-//             console.log(userDat);
-//         })
-//         console.log('json object from prev job: ', userDat);
-//     }catch(e){
-//         core.setFailed(e.message);
-//     }
-
-//     return userDat;
-// }
-
-
 
 async function createRepo(){
     let userlogin = process.argv[2];
-    let data = await octokit.graphql({
-        query: `query{
-            organization(login: "ImmortalHedgehogs"){
-                id
-            }
-        }`
-    });
-    // console.log(userlogin);
     
+    //make repo
     try{
+        
+        var data = await octokit.graphql({
+            query: `query{
+                organization(login: "ImmortalHedgehogs"){
+                    id
+                }
+            }`
+        });
+   
        let res = await octokit.graphql({
             query: `mutation{
-                createRepository(input:{ownerId: "${data.organization.id}" ,name: "${userlogin}", visibility: PUBLIC}){
+                createRepository(input:{ownerId: "${data.organization.id}" ,name: "${userlogin}", visibility: PRIVATE}){
                     repository{
                         url
                         id
@@ -53,12 +34,20 @@ async function createRepo(){
         console.log(e);
     }
 
-    console.log("repo created");
+    //inv collabs
+    try{
+        await octokit.request('PUT /repos/{owner}/{repo}/collaborators/{username}', {
+            owner: '${data.organization.id}',
+            repo: 'ImmortalHedgehogs',
+            user: '${userlogin}',
+            permission: 'admin'
+        })
+    }catch(e){
+        console.log(e);
+    }
+
 }
+
+
 createRepo();
-// function driver(){
-//     let data = getFile(); 
-//     createRepo(data);
-// }
-// createRepo();
 
