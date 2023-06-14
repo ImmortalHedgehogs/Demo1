@@ -1,0 +1,21 @@
+name: 'Get Users'
+description: 'Gets all user logins from an organization'
+inputs: 
+  secret-token:
+    description: 'auth token'
+    required: true
+outputs:
+  user-logins:
+    description: 'json object that holds all user logins'
+    value: ${{ steps.login-getter.outputs.user-logins }}
+runs:
+  using: "composite"
+  steps:
+    - name: Checkout Current Repository
+      uses: actions/checkout@v3
+    - name: Calling carsons query
+      id: login-getter
+      run: |
+        node index.js ${{ inputs.secret-token }}
+        echo "user-logins=`cat outputs.json`" >> $GITHUB_OUTPUT
+      shell: bash 
