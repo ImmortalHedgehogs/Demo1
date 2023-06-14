@@ -1,19 +1,12 @@
-
-
-    
 name: Demo 1 Github Actions/APIs/workflows
 
 on: 
-#   push:
-#     branches: 
-#     - main
   workflow_dispatch:
 
 jobs: 
   Getting_User_logins:
     runs-on: ubuntu-latest
     steps:
-
     # Ripping logins using composite actions
     - name: Get user logins using composite actions
       id: get-users
@@ -22,12 +15,8 @@ jobs:
       uses: ImmortalHedgehogs/Demo1/getUsers@main
       with:
         secret-token: $SECRET_TOKEN
-      
     # placing output from composite action into output.json to upload artifact
     - run: echo ${{ steps.get-users.outputs.user-logins}} >> output.json
-
-
-
     # uploads user logins as an artifact 
     - uses: actions/upload-artifact@v3
       with:

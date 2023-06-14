@@ -21,6 +21,6 @@ runs:
     - name: Calling carsons query
       id: login-getter
       run: |
-        node index.js ${{ inputs.secret-token }}
+        node getUsers.js ${{ inputs.secret-token }}
         echo "user-logins=`cat outputs.json`" >> $GITHUB_OUTPUT
       shell: bash 

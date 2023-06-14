@@ -13,7 +13,6 @@ jobs:
       - uses: actions/download-artifact@v3
         with: 
           name: logins
-      
       - id: set-matrix #populates generatedmatrix -- EOF stuff because it's multiline
         run: |
           JSON=`cat output.json`
@@ -31,7 +30,7 @@ jobs:
     steps:
      - uses: actions/checkout@v3
      - run: npm install
-     - name: call makerepo.js
+     - name: call makeRepo.js
        env:
           SECRET_TOKEN: ${{ secrets.TOKEN }}
        run: node makeRepo.js ${{ matrix.user.login }} "$SECRET_TOKEN" #runs makeRepo.js with username

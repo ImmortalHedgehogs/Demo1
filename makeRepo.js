@@ -1,16 +1,13 @@
-// const  Octokit  = require("octokit");
 import { Octokit } from 'octokit';
-const octokit = new Octokit({
-    auth: process.argv[3],
-});
 
+const octokit = new Octokit({
+    auth: process.argv[3]
+});
 
 async function createRepo(){
     let userlogin = process.argv[2];
-    
     //make repo
     try{
-        
         var data = await octokit.graphql({
             query: `query{
                 organization(login: "ImmortalHedgehogs"){
@@ -37,17 +34,14 @@ async function createRepo(){
     //inv collabs
     try{
         await octokit.request('PUT /repos/{owner}/{repo}/collaborators/{username}', {
-            owner: '${data.organization.id}',
-            repo: 'ImmortalHedgehogs',
-            user: '${userlogin}',
+            owner: 'ImmortalHedgehogs',
+            repo: userlogin,
+            username: userlogin,
             permission: 'admin'
         })
     }catch(e){
         console.log(e);
     }
-
 }
 
-
 createRepo();
-
