@@ -34,9 +34,9 @@ async function createRepo(){
     //inv collabs
     try{
         await octokit.request('PUT /repos/{owner}/{repo}/collaborators/{username}', {
-            owner: '${data.organization.id}',
-            repo: 'ImmortalHedgehogs',
-            user: '${userlogin}',
+            owner: 'ImmortalHedgehogs',
+            repo: userlogin,
+            username: userlogin,
             permission: 'admin'
         })
     }catch(e){
