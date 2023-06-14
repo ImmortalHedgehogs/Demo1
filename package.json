@@ -2,7 +2,7 @@
   "name": "liatrio-bootcamp-chapter2-demo",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "getUsers.js",
   "keywords": [],
   "author": "",
   "license": "ISC",
