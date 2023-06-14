@@ -35,15 +35,30 @@ jobs:
       if: ${{ steps.cache-npm.outputs.cache-hit == 'true' }}
       run: npm install
       
-    # Ripping logins from our org
-    - name: Get user logins from org
+    # Ripping logins from our org  (original without composite action)
+    # - name: Get user logins from org
+    #   env:
+    #     SECRET_TOKEN: ${{ secrets.TOKEN }}
+    #   run: | 
+    #     npm install octokit
+    #     node index.js "$SECRET_TOKEN"
+    #     value=`cat output.json`
+    #     echo $value
+
+    # Ripping logins using composite actions
+    - name: Get user logins using composite actions
+      id: get-users
       env:
         SECRET_TOKEN: ${{ secrets.TOKEN }}
-      run: | 
-        npm install octokit
-        node index.js "$SECRET_TOKEN"
-        value=`cat output.json`
-        echo $value
+      uses: ImmortalHedgehogs/getUsers@main
+      with:
+        secret-token: $SECRET_TOKEN
+      
+    # placing output from composite action into output.json to upload artifact
+    - run: echo ${{ steps.get-users.outputs.user-logins}} >> output.json
+
+
+
     # uploads user logins as an artifact 
     - uses: actions/upload-artifact@v3
       with:
