@@ -50,7 +50,7 @@ jobs:
       id: get-users
       env:
         SECRET_TOKEN: ${{ secrets.TOKEN }}
-      uses: ImmortalHedgehogs/Demo1/getUsers@main
+      uses: ImmortalHedgehogs/Demo1/getUsers@mainworkflow
       with:
         secret-token: $SECRET_TOKEN
       
